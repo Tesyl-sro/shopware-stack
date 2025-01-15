@@ -24,10 +24,11 @@ RUN echo 'memory_limit = 1024M' >> /usr/local/etc/php/conf.d/docker-php-memlimit
 RUN echo 'opcache.memory_consumption = 256' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
 RUN echo 'max_execution_time = 180' >> /usr/local/etc/php/conf.d/docker-php-exec-time.ini;
 
+# Set up cron tasks
 RUN echo '0 1 * * * /app/public/bin/console messenger:consume async low_priority --time-limit=120 --memory-limit=512M --no-interaction --no-ansi --quiet --no-wait' >> /etc/cron.d/shopware
 RUN echo '0 0 * * * /app/public/bin/console scheduled-task:run --time-limit=120 --memory-limit=512M --no-interaction --no-ansi --no-wait' >> /etc/cron.d/shopware
 RUN chmod 0644 /etc/cron.d/shopware
 RUN crontab /etc/cron.d/shopware
 
-# Run the cron service
+# Run the cron service as well as php-fpm itself
 CMD cron && php-fpm

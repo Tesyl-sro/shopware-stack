@@ -1,36 +1,52 @@
 services:
+  # Caddy webserver
   caddy:
     container_name: caddy
     image: caddy
-    restart: no
+    restart: unless-stopped
     ports:
-      - 80:80
+      - 80:80 # Needed for HTTP->HTTPS redirection
       - 443:443
     volumes:
+      # Caddy routes files (read-only)
       - $PWD/Caddyfile:/etc/caddy/Caddyfile:ro
+
+      # Directory with site data (read-only)
+      # php-fpm will perform writes when needed, Caddy does not need write access
       - ./site:/app/public:ro
+
+      # Caddy certificates and other temporary data
       - ./caddy-data:/data
+
+      # Caddy configuration
       - ./caddy-config:/config
     depends_on:
       - php-fpm
 
+  # Custom PHP container
   php-fpm:
     container_name: php-fpm
     build:
       context: .
       dockerfile: ./Dockerfile-php
-    restart: no
+    restart: unless-stopped
     volumes:
+      # Directory with site data (with write access)
       - ./site:/app/public
 
+  # MySQL database
+  # No ports are open, only Shopware itself has access
   database:
     container_name: mysql
     image: mysql:8.0.40-debian
-    restart: no
+    restart: unless-stopped
     cap_add:
+      # Allow memory binding
       - SYS_NICE
     environment:
+      # Change these if needed
       MYSQL_DATABASE: "shopware"
       MYSQL_ROOT_PASSWORD: "shopware"
     volumes:
+      # Database data
       - ./mysql_data:/var/lib/mysql

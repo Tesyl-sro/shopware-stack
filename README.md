@@ -29,6 +29,8 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
     - Memory limit: *512MB*
 
 ## Getting started
+Before you start, you may change the default database password in [the compose file](./docker-compose.yml). Do not attempt to create additional database users, you cannot grant permissions due to how restricted the database is. If you really want this, you'll need to at least temporarily open the MySQL port on the container.
+
 1. Install Docker using [these](https://docs.docker.com/engine/install/) instructions.
 2. Download this repo as a zip to your server.
 3. Extract the archive.
@@ -64,7 +66,7 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
 15. Open the admin panel by going to `/admin` (E.g. `https://example.com/admin`).
 16. Complete the first-time setup.
 
-## Production setup
+## Post-setup
 Before performing these steps:
 1. Make sure you're in the root directory of this repo.
 2. Shut down the stack.

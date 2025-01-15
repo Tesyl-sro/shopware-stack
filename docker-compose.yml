@@ -9,7 +9,7 @@ services:
       - 443:443
     volumes:
       # Caddy routes files (read-only)
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
 
       # Directory with site data (read-only)
       # php-fpm will perform writes when needed, Caddy does not need write access

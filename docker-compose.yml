@@ -1,0 +1,36 @@
+services:
+  caddy:
+    container_name: caddy
+    image: caddy
+    restart: no
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./site:/app/public:ro
+      - ./caddy-data:/data
+      - ./caddy-config:/config
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    container_name: php-fpm
+    build:
+      context: .
+      dockerfile: ./Dockerfile-php
+    restart: no
+    volumes:
+      - ./site:/app/public
+
+  database:
+    container_name: mysql
+    image: mysql:8.0.40-debian
+    restart: no
+    cap_add:
+      - SYS_NICE
+    environment:
+      MYSQL_DATABASE: "shopware"
+      MYSQL_ROOT_PASSWORD: "shopware"
+    volumes:
+      - ./mysql_data:/var/lib/mysql

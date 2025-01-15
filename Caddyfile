@@ -1,0 +1,38 @@
+http://example.com/ {
+  redir https://www.{host}{uri}
+}
+
+www.example.com {
+  header {
+    Referrer-Policy no-referrer-when-downgrade
+  }
+
+  @svg {
+    file
+    path *.svg
+  }
+
+  header @svg Content-Security-Policy "script-src 'none'"
+
+  @default {
+    not path /theme/* /media/* /thumbnail/* /bundles/* /css/* /fonts/* /js/* /recovery/* /sitemap/*
+  }
+
+  @htaccess {
+    path */.*
+    not path /.well-known/*
+  }
+  respond @htaccess "Forbidden" 403 {
+    close
+  }
+
+  @static {
+    path_regexp \.(jpg|jpeg|png|webp|gif|avif|ico|svg|css|js|gz|eot|ttf|otf|woff|woff2|pdf)$
+  }
+  header @static Cache-Control "max-age=3600,public,immutable"
+
+  root * /app/public
+  php_fastcgi php-fpm:9000
+  encode zstd gzip
+  file_server
+}

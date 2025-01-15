@@ -1,0 +1,8 @@
+# Caddy config and data
+caddy-*/
+
+# MySQL data
+mysql_data/
+
+# Website data
+site/

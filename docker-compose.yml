@@ -34,6 +34,8 @@ services:
     volumes:
       # Directory with site data (with write access)
       - ./site:/app/public
+    depends_on:
+        - database
 
   # MySQL database
   # No ports are open, only Shopware itself has access

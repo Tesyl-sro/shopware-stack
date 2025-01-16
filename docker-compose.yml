@@ -7,6 +7,7 @@ services:
     ports:
       - 80:80 # Needed for HTTP->HTTPS redirection
       - 443:443
+      - 443:443/udp
     volumes:
       # Caddy routes files (read-only)
       - ./Caddyfile:/etc/caddy/Caddyfile:ro

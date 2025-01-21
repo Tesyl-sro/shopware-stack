@@ -37,7 +37,7 @@ services:
     depends_on:
         - database
 
-  # MySQL database
+  # MariaDB database
   # No ports are open, only Shopware itself has access
   database:
       container_name: mariadb

@@ -94,6 +94,45 @@ Perform the following steps to optimize Shopware for production use:
 </details>
 
 <details>
+  <summary>Run `bash` inside the PHP-FPM container</summary>
+  
+  ```sh
+  docker exec -it php-fpm bash
+  ```
+</details>
+
+<details>
+  <summary>Run `bash` inside the database container</summary>
+  
+  ```sh
+  docker exec -it mysql bash
+  ```
+</details>
+
+<details>
+  <summary>Use PHP CLI</summary>
+  
+  ```sh
+  docker exec -it php-fpm php [COMMAND]
+  ```
+
+  Example:
+  ```sh
+  docker exec -it php-fpm php -v
+  ```
+</details>
+
+<details>
+  <summary>Use MySQL CLI</summary>
+  
+  ```sh
+  docker exec -it mysql mysql -u root --password=shopware -D shopware
+  ```
+
+  **Note:** If you changed the database name and/or password, you need to adjust the `-D` and `--password` arguments.
+</details>
+
+<details>
   <summary>Use Shopware CLI</summary>
   
   ```sh

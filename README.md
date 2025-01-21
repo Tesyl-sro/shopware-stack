@@ -2,7 +2,7 @@
 
 The stack consists of:
  - PHP 8.3 (FPM) under Debian Bullseye
- - MySQL 8.0.40 under Debian
+ - MariaDB 11.6.2 under Debian
  - Caddy (latest stable)
 
 The [compose](./docker-compose.yml) stack will take care of building a customized PHP container image with the necessary extensions.
@@ -11,7 +11,7 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
   - [x] Automatic HTTP->HTTPS redirect
   - [x] Root to `www.` redirection
   - [x] Dotfiles blocked (except `.well-known/`)
-- [x] Pre-configured MySQL 8.0.40
+- [x] Pre-configured MariaDB 11.6.2
   - [x] Secure access - inaccessible from outside, even the host itself
 - [x] Pre-configured PHP 8.3.15 for Shopware
   - [x] Pre-installed modules: `mbstring`, `gd`, `intl`, `pdo_mysql`, `zip`
@@ -29,7 +29,7 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
     - Memory limit: *512MB*
 
 ## Getting started
-Before you start, you may change the default database password in [the compose file](./docker-compose.yml). Do not attempt to create additional database users, you cannot grant permissions due to how restricted the database is. If you really want this, you'll need to at least temporarily open the MySQL port on the container.
+Before you start, you may change the default database password in [the compose file](./docker-compose.yml). Do not attempt to create additional database users, you cannot grant permissions due to how restricted the database is. If you really want this, you'll need to at least temporarily open the MariaDB port on the container.
 
 1. Install Docker using [these](https://docs.docker.com/engine/install/) instructions.
 2. Download this repo as a zip to your server.
@@ -105,7 +105,7 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Run a shell inside the database container</summary>
   
   ```sh
-  docker exec -it mysql bash
+  docker exec -it mariadb bash
   ```
 </details>
 
@@ -123,10 +123,10 @@ Perform the following steps to optimize Shopware for production use:
 </details>
 
 <details>
-  <summary>Use MySQL CLI</summary>
+  <summary>Use MariaDB CLI</summary>
   
   ```sh
-  docker exec -it mysql mysql -u root --password=shopware -D shopware
+  docker exec -it mariadb mariadb -u root --password=shopware -D shopware
   ```
 
   **Note:** If you changed the database name and/or password, you need to adjust the `-D` and `--password` arguments.

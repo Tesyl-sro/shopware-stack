@@ -40,16 +40,16 @@ services:
   # MySQL database
   # No ports are open, only Shopware itself has access
   database:
-    container_name: mysql
-    image: mysql:8.0.40-debian
-    restart: unless-stopped
-    cap_add:
-      # Allow memory binding
-      - SYS_NICE
-    environment:
-      # Change these if needed
-      MYSQL_DATABASE: "shopware"
-      MYSQL_ROOT_PASSWORD: "shopware"
-    volumes:
-      # Database data
-      - ./mysql_data:/var/lib/mysql
+      container_name: mariadb
+      image: mariadb:latest
+      restart: unless-stopped
+      cap_add:
+        # Allow memory binding
+        - SYS_NICE
+      environment:
+        # Change these if needed
+        MARIADB_DATABASE: "shopware"
+        MARIADB_ROOT_PASSWORD: "shopware"
+      volumes:
+        # Database data
+        - ./mariadb_data:/var/lib/mysql

@@ -94,7 +94,7 @@ Perform the following steps to optimize Shopware for production use:
 </details>
 
 <details>
-  <summary>Run `bash` inside the PHP-FPM container</summary>
+  <summary>Run a shell inside the PHP-FPM container</summary>
   
   ```sh
   docker exec -it php-fpm bash
@@ -102,7 +102,7 @@ Perform the following steps to optimize Shopware for production use:
 </details>
 
 <details>
-  <summary>Run `bash` inside the database container</summary>
+  <summary>Run a shell inside the database container</summary>
   
   ```sh
   docker exec -it mysql bash

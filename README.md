@@ -180,6 +180,9 @@ docker compose down
 
 # Create a tar archive in the parent directory
 tar cvzf ../my-shopware-backup.tar.gz .
+
+# Check the contents (remove the pipe to head to see all files)
+tar tvf my-shopware-backup.tar.gz | head
 ```
 
 You could also use `zip` or `7-Zip` to create a backup archive.

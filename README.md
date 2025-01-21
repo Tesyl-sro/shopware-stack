@@ -168,3 +168,42 @@ Perform the following steps to optimize Shopware for production use:
   docker exec -it php-fpm php /app/public/bin/console scheduled-task:run --time-limit=60 --memory-limit=512M --no-interaction --no-ansi
   ```
 </details>
+
+## Backing up your stack
+To create a backup of your Shopware stack (inc. Shopware data, database and Caddy configuration), simply shut down the stack and archive the data directories mentioned in the [compose](./docker-compose.yml) file.
+
+The commands listed below assume that you are inside the root of this repository on your system:
+
+```sh
+# Shut down all containers
+docker compose down
+
+# Create a tar archive in the parent directory
+tar cvzf ../my-shopware-backup.tar.gz .
+```
+
+You could also use `zip` or `7-Zip` to create a backup archive.
+
+**It is recommended that you use `tar`, as it keeps track of permissions and ownerships.**
+
+### Restoring from a backup
+To restore your Shopware stack from a backup, run the following steps:
+
+1. Extract the backup archive.
+    ```sh
+    tar xvzf ../my-shopware-backup.tar.gz
+    ```
+2. `cd` into the new directory.
+    ```sh
+    cd my-shopware-backup
+    ```
+3. Ensure that the `site` directory is owned by `www-data`:
+    ```sh
+    ls -lh site
+    ```
+
+    If not, perform step 8 from the `Getting started` section.
+4. Start the stack.
+    ```sh
+    docker compose up -d
+    ```

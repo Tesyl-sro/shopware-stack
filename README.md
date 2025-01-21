@@ -133,6 +133,31 @@ Perform the following steps to optimize Shopware for production use:
 </details>
 
 <details>
+  <summary>Dump the database</summary>
+  
+  ```sh
+  docker exec -it mariadb mariadb-dump -u root --password=shopware --skip-set-charset --default-character-set=utf8mb4 shopware > database_dump.sql
+  ```
+
+  **Note 1:** If you changed the database name and/or password, you need to adjust the `--password` argument and/or replace the database name `shopware`.
+</details>
+
+<details>
+  <summary>Import an SQL file</summary>
+  
+  ```sh
+  docker exec -i mariadb mariadb -u root --password=shopware -D shopware < [SOURCE]
+  ```
+
+  Example:
+  ```sh
+  docker exec -i mariadb mariadb -u root --password=shopware -D shopware < my_backup_file.sql
+  ```
+
+  **Note:** If you changed the database name and/or password, you need to adjust the `-D` and `--password` arguments.
+</details>
+
+<details>
   <summary>Use Shopware CLI</summary>
   
   ```sh

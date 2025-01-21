@@ -194,7 +194,7 @@ To restore your Shopware stack from a backup, run the following steps:
 
 1. Extract the backup archive.
     ```sh
-    tar xvzf ../my-shopware-backup.tar.gz
+    tar xvzf my-shopware-backup.tar.gz
     ```
 2. `cd` into the new directory.
     ```sh

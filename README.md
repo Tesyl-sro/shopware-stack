@@ -215,6 +215,8 @@ You could also use `zip` or `7-Zip` to create a backup archive.
 **It is recommended that you use `tar`, as it keeps track of permissions and ownerships.**
 
 ### Restoring from a backup
+> If you just want to import a database from a SQL dump file, check the `Useful commands` section above.
+
 To restore your Shopware stack from a backup, run the following steps:
 
 1. Extract the backup archive.

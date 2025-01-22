@@ -102,6 +102,21 @@ Perform the following steps to optimize Shopware for production use:
         cache_compression: true
         cache_compression_method: 'zstd'
     ```
+3. Disable App URL external check [(Read more)](https://developer.shopware.com/docs/guides/hosting/performance/performance-tweaks.html#disable-app-url-external-check)
+    **Make sure that `APP_URL` is set correctly, e.g. `https://mystore.com` in both `.env` and `.env.local`.**
+    
+    ```sh
+    nano site/.env
+    ```
+
+    Add the following:
+    ```
+    APP_URL_CHECK_DISABLED=1
+    ```
+
+    Repeat the same for `.env.local`.
+
+    **Restart the stack after modifying these files!**
 
 ## Useful commands
 <details>

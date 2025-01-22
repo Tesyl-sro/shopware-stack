@@ -83,6 +83,25 @@ Perform the following steps to optimize Shopware for production use:
         admin_worker:
             enable_admin_worker: false
     ```
+2. Use `zstd` instead of `gzip` for cache and cart compression. [(Read more)](https://developer.shopware.com/docs/guides/hosting/performance/performance-tweaks.html#using-zstd-instead-of-gzip-for-compression)
+   
+    **You need to clear all caches and then stop the stack before doing this!**
+    **Run all commands from `Reset all caches` under the `Useful commands section` first.**
+
+    ```sh
+    docker compose down
+    nano site/config/packages/shopware.yml
+    ```
+
+    Add the following under `shopware`:
+    ```yml
+    cart:
+        compress: true
+        compression_method: zstd
+    cache:
+        cache_compression: true
+        cache_compression_method: 'zstd'
+    ```
 
 ## Useful commands
 <details>
@@ -191,6 +210,17 @@ Perform the following steps to optimize Shopware for production use:
   
   ```sh
   docker exec -it php-fpm php /app/public/bin/console scheduled-task:run --time-limit=60 --memory-limit=512M --no-interaction --no-ansi
+  ```
+</details>
+
+<details>
+  <summary>Reset all caches</summary>
+  
+  ```sh
+  docker exec -it php-fpm php /app/public/bin/console cache:pool:clear --all
+  docker exec -it php-fpm php /app/public/bin/console cache:clear
+  docker exec -it php-fpm php /app/public/bin/console cache:warmup
+  chown -hR www-data:www-data site
   ```
 </details>
 

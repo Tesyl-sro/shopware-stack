@@ -41,8 +41,8 @@ RUN echo 'zend.detect_unicode=0' >> /usr/local/etc/php/conf.d/docker-php-sw-opts
 RUN echo 'realpath_cache_ttl=3600' >> /usr/local/etc/php/conf.d/docker-php-sw-opts.ini;
 
 # Set up cron tasks
-RUN echo '0 1 * * * /usr/local/bin/php /app/public/bin/console messenger:consume async low_priority --time-limit=120 --memory-limit=512M --no-interaction --no-ansi --quiet --no-wait' >> /etc/cron.d/shopware
-RUN echo '0 0 * * * /usr/local/bin/php /app/public/bin/console scheduled-task:run --time-limit=120 --memory-limit=512M --no-interaction --no-ansi --no-wait' >> /etc/cron.d/shopware
+RUN echo '* * * * * /usr/local/bin/php /app/public/bin/console messenger:consume async low_priority --time-limit=30 --memory-limit=512M --no-interaction --no-ansi --quiet' >> /etc/cron.d/shopware
+RUN echo '* * * * * /usr/local/bin/php /app/public/bin/console scheduled-task:run --time-limit=30 --memory-limit=512M --no-interaction --no-ansi' >> /etc/cron.d/shopware
 RUN chmod 0644 /etc/cron.d/shopware
 RUN crontab /etc/cron.d/shopware
 

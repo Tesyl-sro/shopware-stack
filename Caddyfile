@@ -1,4 +1,4 @@
-http://example.com/ {
+example.com {
   redir https://www.{host}{uri}
 }
 

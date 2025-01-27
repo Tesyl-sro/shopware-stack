@@ -32,7 +32,7 @@ www.example.com {
   header @static Cache-Control "max-age=3600,public,immutable"
 
   root * /app/public
-  php_fastcgi php-fpm:9000
+  php_fastcgi @default php-fpm:9000
   encode zstd gzip
   file_server
 }

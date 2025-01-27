@@ -247,7 +247,10 @@ Perform the following steps to optimize Shopware for production use:
   > 
   > This will **NOT** detele your database, shopware data, Caddy configuration from this stack.
   
+  **Make sure to shut down the stack before running these commands.**
+
   ```sh
+  docker builder prune -a -f
   docker rm -vf $(docker ps -aq)
   docker rmi -f $(docker images -aq)
   ```

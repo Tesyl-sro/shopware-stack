@@ -251,7 +251,7 @@ Perform the following steps to optimize Shopware for production use:
 
   ```sh
   docker builder prune -a -f
-  docker rm -vf $(docker ps -aq)
+  docker rm -vf $(docker ps -aq) # This will fail if you don't have any volumes
   docker rmi -f $(docker images -aq)
   ```
 </details>

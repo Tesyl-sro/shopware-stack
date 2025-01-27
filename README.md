@@ -69,7 +69,9 @@ Before you start, you may change the default database password in [the compose f
 ## Post-setup
 Before performing these steps:
 1. Make sure you're in the root directory of this repo.
-2. Shut down the stack.
+2. Shut down the stack (unless stated otherwise).
+
+**The following steps are not required, but may help improve security and performance.**
 
 Perform the following steps to optimize Shopware for production use:
 1. Disable the admin worker using a new config file.

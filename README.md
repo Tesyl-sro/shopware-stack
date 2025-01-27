@@ -238,6 +238,21 @@ Perform the following steps to optimize Shopware for production use:
   ```
 </details>
 
+<details>
+  <summary>Clean up Docker</summary>
+
+  > __⚠️ WARNING ⚠️__
+  > 
+  > This will irrecoverably delete **ALL VOLUMES AND IMAGES**.
+  > 
+  > This will **NOT** detele your database, shopware data, Caddy configuration from this stack.
+  
+  ```sh
+  docker rm -vf $(docker ps -aq)
+  docker rmi -f $(docker images -aq)
+  ```
+</details>
+
 ## Backing up your stack
 To create a backup of your Shopware stack (inc. Shopware data, database and Caddy configuration), simply shut down the stack and archive the data directories mentioned in the [compose](./docker-compose.yml) file.
 

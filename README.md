@@ -20,12 +20,12 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
   - [x] Increased execution time limit to *3m*
 - [x] Pre-configured Cron jobs for Shopware 6
   - `messenger:consume`
-    - Runs at *01:00 AM*
-    - Time limit: *2min*
+    - Runs every minute
+    - Time limit: *30 secs*
     - Memory limit: *512MB*
   - `scheduled-task:run`
-    - Runs at *00:00 AM*
-    - Time limit: *2min*
+    - Runs every minute
+    - Time limit: *30 secs*
     - Memory limit: *512MB*
 
 ## Getting started

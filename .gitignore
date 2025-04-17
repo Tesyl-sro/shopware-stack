@@ -2,7 +2,7 @@
 caddy-*/
 
 # MySQL data
-mysql_data/
+mariadb_data/
 
 # Website data
 site/

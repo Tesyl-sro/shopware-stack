@@ -66,6 +66,19 @@ Before you start, you may change the default database password in [the compose f
 
 Note that during the installation, you should **not** start `shopware_sched_task_runner` and `shopware_messenger_runner`. These services should only ever be started after Shopware is **fully** installed, **including** the OOBE setup. Running these services with an incomplete installation of Shopware may brick your installation and you have to start over.
 
+## Testing on localhost
+If you want to test this stack on `localhost`, do the following:
+1. Remove the HTTP->HTTPS redirect entry from `Caddyfile`:
+    ```
+    example.com {
+      redir https://www.{host}{uri}
+    }
+    ```
+2. Change the domain from `www.example.com` to `http://localhost`.
+3. Continue as normal with the rest of the setup.
+
+On some systems, the `www-data` user and group may not exist. In this case, use the UID `33` and GID `33` in the `chown` commands. Additionnaly, you may need to use `sudo`.
+
 ## Post-setup
 Before performing these steps:
 1. Make sure you're in the root directory of this repo.

@@ -238,6 +238,9 @@ Perform the following steps to optimize Shopware for production use:
   docker exec -it php-fpm php /app/public/bin/console cache:clear
   chown -hR www-data:www-data site
   ```
+
+  Note that if your system does **not** have the `www-data` user and group created, you can use `chown -hR 33:33 site` instead.
+  Some of these commands may require root/`sudo`.
 </details>
 
 <details>

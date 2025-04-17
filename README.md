@@ -18,14 +18,12 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
   - [x] Pre-configured and enabled opcache
   - [x] Increased memory limit to 1G
   - [x] Increased execution time limit to *3m*
-- [x] Pre-configured Cron jobs for Shopware 6
+- [x] Pre-configured background service runners for Shopware 6
   - `messenger:consume`
-    - Runs every minute
-    - Time limit: *30 secs*
+    - Runs as a separate container
     - Memory limit: *512MB*
   - `scheduled-task:run`
-    - Runs every minute
-    - Time limit: *30 secs*
+    - Runs as a separate container
     - Memory limit: *512MB*
 
 ## Getting started
@@ -45,26 +43,28 @@ Before you start, you may change the default database password in [the compose f
     ```
 7. Download the Shopware installer into the `site` directory:
     ```sh
-    cd site
-    wget https://github.com/shopware/web-recovery/releases/latest/download/shopware-installer.phar.php
-    cd ..
+    wget https://github.com/shopware/web-recovery/releases/latest/download/shopware-installer.phar.php -O site/shopware-installer.phar.php
     ```
 8. Change ownership of the `site` directory to the `www-data` user and group:
     ```sh
     chown -hR www-data:www-data site
     ```
-9. Run the stack using Docker Compose.
+9. Run the stack using Docker Compose, without `shopware_sched_task_runner` and `shopware_messenger_runner`.
     ```sh
-    docker compose up
+    docker compose up caddy php-fpm database
     ```
     *You can add `-d` to run it in the background.*
-10. Complete the initial Shopware setup.
+10. Complete the initial Shopware setup at `https://[your-domain]/shopware-installer.phar.php`.
 11. Shut down the server with Ctrl-C or `docker compose down` if it's running in the background.
 12. Edit the `Caddyfile` so that the **root folder** is `/app/public/public`.
-13. Restart the server according to step 9.
-14. Complete the Shopware database configuration. Wait until the page is no longer loading after clicking `Next` during the `Configuration` step.
-15. Open the admin panel by going to `/admin` (E.g. `https://example.com/admin`).
+13. Restart the server **according to step 9**.
+14. Complete the Shopware database configuration at `https://[your-domain]/installer`. Wait until the page is no longer loading after clicking `Next` during the `Configuration` step.
+15. Open the admin panel by going to `/admin` (e.g. `https://example.com/admin`).
 16. Complete the first-time setup.
+17. Shut down the server **according to step 11**.
+18. Restart the server as well as all services using `docker compose up`.
+
+Note that during the installation, you should **not** start `shopware_sched_task_runner` and `shopware_messenger_runner`. These services should only ever be started after Shopware is **fully** installed, **including** the OOBE setup. Running these services with an incomplete installation of Shopware may brick your installation and you have to start over.
 
 ## Post-setup
 Before performing these steps:
@@ -121,6 +121,15 @@ Perform the following steps to optimize Shopware for production use:
     **Restart the stack after modifying these files!**
 
 ## Useful commands
+ 
+<details>
+  <summary>Clean up unused Docker containers</summary>
+  
+  ```sh
+  docker container prune -f
+  ```
+</details>
+
 <details>
   <summary>View containers and their statuses</summary>
   

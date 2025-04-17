@@ -6,7 +6,6 @@ RUN apt upgrade -y
 
 RUN apt install -y build-essential
 RUN apt install -y libonig-dev zlib1g-dev libpng-dev libicu-dev libzip-dev
-RUN apt install -y cron
 RUN apt install -y nano
 
 # Install extensions
@@ -38,11 +37,5 @@ RUN echo 'zend.assertions=-1' >> /usr/local/etc/php/conf.d/docker-php-sw-opts.in
 RUN echo 'zend.detect_unicode=0' >> /usr/local/etc/php/conf.d/docker-php-sw-opts.ini;
 RUN echo 'realpath_cache_ttl=3600' >> /usr/local/etc/php/conf.d/docker-php-sw-opts.ini;
 
-# Set up cron tasks
-RUN echo '* * * * * /usr/local/bin/php /app/public/bin/console messenger:consume async low_priority --time-limit=30 --memory-limit=512M --no-interaction --no-ansi --quiet' >> /etc/cron.d/shopware
-RUN echo '* * * * * /usr/local/bin/php /app/public/bin/console scheduled-task:run --time-limit=30 --memory-limit=512M --no-interaction --no-ansi' >> /etc/cron.d/shopware
-RUN chmod 0644 /etc/cron.d/shopware
-RUN crontab /etc/cron.d/shopware
-
-# Run the cron service as well as php-fpm itself
-CMD cron && php-fpm
+# Run php-fpm
+CMD php-fpm

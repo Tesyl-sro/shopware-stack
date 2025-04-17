@@ -1,3 +1,8 @@
+# Leave this section
+{
+  admin off
+}
+
 example.com {
   redir https://www.{host}{uri}
 }
@@ -35,4 +40,9 @@ www.example.com {
   php_fastcgi @default php-fpm:9000
   encode zstd gzip
   file_server
+}
+
+# Leave this section
+http://localhost:2019 {
+  metrics /metrics
 }

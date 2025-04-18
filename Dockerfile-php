@@ -37,5 +37,10 @@ RUN echo 'zend.assertions=-1' >> /usr/local/etc/php/conf.d/docker-php-sw-opts.in
 RUN echo 'zend.detect_unicode=0' >> /usr/local/etc/php/conf.d/docker-php-sw-opts.ini;
 RUN echo 'realpath_cache_ttl=3600' >> /usr/local/etc/php/conf.d/docker-php-sw-opts.ini;
 
+# Copy the entrypoint script
+COPY ./entrypoint-php.sh /entrypoint.sh
+# Make it executable
+RUN chmod +x /entrypoint.sh
+
 # Run php-fpm
-CMD php-fpm
+CMD /entrypoint.sh

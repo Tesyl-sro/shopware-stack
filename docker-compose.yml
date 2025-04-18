@@ -82,7 +82,7 @@ services:
       caddy:
         condition: service_healthy
 
-  # Scheduled task runner
+  # Messenger consumer
   shopware_messenger_runner:
     container_name: shopware_messenger_runner
     build:

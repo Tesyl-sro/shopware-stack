@@ -65,7 +65,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-php
-    command: /usr/local/bin/php /app/public/bin/console scheduled-task:run --memory-limit=512M --no-interaction --no-ansi -vvv
+    command: /usr/local/bin/php /app/public/bin/console scheduled-task:run --memory-limit=512M --no-interaction --no-ansi
     restart: unless-stopped
     volumes:
       # Directory with site data (with write access)
@@ -80,7 +80,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-php
-    command: /usr/local/bin/php /app/public/bin/console messenger:consume async low_priority --memory-limit=512M --no-interaction --no-ansi -vvv
+    command: /usr/local/bin/php /app/public/bin/console messenger:consume async low_priority --memory-limit=512M --no-interaction --no-ansi
     restart: unless-stopped
     volumes:
       # Directory with site data (with write access)

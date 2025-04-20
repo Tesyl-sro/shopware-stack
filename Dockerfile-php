@@ -6,7 +6,7 @@ RUN apt upgrade -y
 
 RUN apt install -y build-essential
 RUN apt install -y libonig-dev zlib1g-dev libpng-dev libicu-dev libzip-dev
-RUN apt install -y nano
+RUN apt install -y nano procps
 
 # Install extensions
 RUN docker-php-ext-install mbstring

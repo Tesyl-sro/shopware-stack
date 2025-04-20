@@ -32,6 +32,7 @@ services:
   # Custom PHP container
   php-fpm:
     container_name: php-fpm
+    user: 'www-data:www-data'
     build:
       context: .
       dockerfile: ./Dockerfile-php
@@ -70,6 +71,7 @@ services:
   # Scheduled task runner
   shopware_sched_task_runner:
     container_name: shopware_sched_task_runner
+    user: 'www-data:www-data'
     build:
       context: .
       dockerfile: ./Dockerfile-php
@@ -85,6 +87,7 @@ services:
   # Messenger consumer
   shopware_messenger_runner:
     container_name: shopware_messenger_runner
+    user: 'www-data:www-data'
     build:
       context: .
       dockerfile: ./Dockerfile-php

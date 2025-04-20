@@ -144,6 +144,7 @@ Perform the following steps to optimize Shopware for production use:
    ```
 
    **Rebuild AND restart the stack after modifying these files!**
+   
    **Note:** This may cause stability issues, however it also noticably improves (loading) performance. If this is unstable for you, undo this change. You may also sometimes see a lot of errors from `shopware_sched_task_runner` and `shopware_messenger_runner` *during startup*. This is normal, and it should be automatically fixed after a few seconds, and if not, undo this change.
 
 ## Useful commands

@@ -118,6 +118,7 @@ Perform the following steps to optimize Shopware for production use:
         cache_compression_method: 'zstd'
     ```
 3. Disable App URL external check [(Read more)](https://developer.shopware.com/docs/guides/hosting/performance/performance-tweaks.html#disable-app-url-external-check)
+    
     **Make sure that `APP_URL` is set correctly, e.g. `https://mystore.com` in both `.env` and `.env.local`.**
     
     ```sh
@@ -133,6 +134,7 @@ Perform the following steps to optimize Shopware for production use:
 
     **Restart the stack after modifying these files!**
 4. **(Not recommended)** Enable OPCache preloading.
+   
    _This can noticably improve loading times, but it may cause stability issues for unknown reasons._
    Add/Uncomment the following 2 lines in `Dockerfile-php`'s `OPCache tuning` section:
    

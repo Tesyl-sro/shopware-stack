@@ -171,8 +171,102 @@ Perform the following steps to optimize Shopware for production use:
       secrets:
         enabled: false
     ```
+6. Prevent mail data updates
+   
+    **You need to clear all caches and then stop the stack before doing this!**
+    **Run all commands from `Reset all caches` under the `Useful commands section` first.**
+   
+    ```sh
+    docker compose down
+    nano site/config/packages/shopware.yml
+    ```
 
-6. **(Not recommended)** Enable OPCache preloading.
+    Add the following under `shopware`:
+    ```yml
+    mail:
+      update_mail_variables_on_send: false
+    ```
+7. Enable sending mails over queue
+   
+    **You need to clear all caches and then stop the stack before doing this!**
+    **Run all commands from `Reset all caches` under the `Useful commands section` first.**
+   
+    ```sh
+    docker compose down
+    nano site/config/packages/framework.yml
+    ```
+
+    Add the following:
+    ```yml
+    framework:
+      mailer:
+        message_bus: 'messenger.default_bus'
+    ```
+8. Disable the Increment Storage
+   
+    **You need to clear all caches and then stop the stack before doing this!**
+    **Run all commands from `Reset all caches` under the `Useful commands section` first.**
+   
+    ```sh
+    docker compose down
+    nano site/config/packages/shopware.yml
+    ```
+
+    Add the following under `shopware`:
+    ```yml
+    increment:
+      user_activity:
+        type: 'array'
+      message_queue:
+        type: 'array'
+    ```
+9. Disable fine-grained caching on Redis, Varnish etc.
+   
+    **You need to clear all caches and then stop the stack before doing this!**
+    **Run all commands from `Reset all caches` under the `Useful commands section` first.**
+   
+    ```sh
+    docker compose down
+    nano site/config/packages/shopware.yml
+    ```
+
+    Add the following under `shopware.cache`:
+    ```yml
+    tagging:
+      each_config: false
+      each_snippet: false
+      each_theme_config: false
+    ```
+10. Disable Product Stream Indexing
+   
+    **You need to clear all caches and then stop the stack before doing this!**
+    **Run all commands from `Reset all caches` under the `Useful commands section` first.**
+   
+    ```sh
+    docker compose down
+    nano site/config/packages/shopware.yml
+    ```
+
+    Add the following under `shopware`:
+    ```yml
+    product_stream:
+      indexing: false
+    ```
+11. Set a fixed cache ID
+    ```sh
+    nano site/.env
+    ```
+
+    Add the following:
+    ```
+    SHOPWARE_CACHE_ID=mystore
+    ```
+    You can replace `mystore` with any other valid name.
+
+    Repeat the same for `.env.local`.
+
+    **Clear all caches AND THEN restart the stack to apply the changes!**
+13. **(Not recommended)** Enable OPCache preloading.
    
    _This can noticably improve loading times, but it may cause stability issues for unknown reasons._
 

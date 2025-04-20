@@ -45,4 +45,4 @@ COPY ./entrypoint-php.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Run php-fpm
-CMD /entrypoint.sh
+CMD ["/entrypoint.sh"]

@@ -44,5 +44,7 @@ COPY ./entrypoint-php.sh /entrypoint.sh
 # Make it executable
 RUN chmod +x /entrypoint.sh
 
+STOPSIGNAL SIGTERM
+
 # Run php-fpm
 CMD ["/entrypoint.sh"]

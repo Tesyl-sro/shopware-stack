@@ -98,6 +98,8 @@ Perform the following steps to optimize Shopware for production use:
         admin_worker:
             enable_admin_worker: false
     ```
+
+    **Clear all caches AND THEN restart the stack to apply the changes!**
 2. Use `zstd` instead of `gzip` for cache and cart compression. [(Read more)](https://developer.shopware.com/docs/guides/hosting/performance/performance-tweaks.html#using-zstd-instead-of-gzip-for-compression)
    
     **You need to clear all caches and then stop the stack before doing this!**
@@ -132,11 +134,48 @@ Perform the following steps to optimize Shopware for production use:
 
     Repeat the same for `.env.local`.
 
-    **Restart the stack after modifying these files!**
-4. **(Not recommended)** Enable OPCache preloading.
+    **Clear all caches AND THEN restart the stack to apply the changes!**
+4. Set the log level of `monolog` to `error` and limit it's buffer size:
+   
+    **You need to clear all caches and then stop the stack before doing this!**
+    **Run all commands from `Reset all caches` under the `Useful commands section` first.**
+   
+    ```sh
+    docker compose down
+    nano site/config/packages/monolog.yml
+    ```
+
+    Add the following:
+    ```yml
+    monolog:
+      handlers:
+        main:
+          level: error
+          buffer_size: 30
+        business_event_handler_buffer:
+          level: error
+    ```
+5. Disable Symfony Secrets
+   
+    **You need to clear all caches and then stop the stack before doing this!**
+    **Run all commands from `Reset all caches` under the `Useful commands section` first.**
+   
+    ```sh
+    docker compose down
+    nano site/config/packages/secrets.yml
+    ```
+
+    Add the following:
+    ```yml
+    framework:
+      secrets:
+        enabled: false
+    ```
+
+6. **(Not recommended)** Enable OPCache preloading.
    
    _This can noticably improve loading times, but it may cause stability issues for unknown reasons._
-   
+
    Add/Uncomment the following 2 lines in `Dockerfile-php`'s `OPCache tuning` section:
    
    ```dockerfile

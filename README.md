@@ -134,7 +134,7 @@ Perform the following steps to optimize Shopware for production use:
     **Restart the stack after modifying these files!**
 4. **(Not recommended)** Enable OPCache preloading.
    _This can noticably improve loading times, but it may cause stability issues for unknown reasons._
-   Add/Uncomment the following 2 lines in `Dockerfile-php`:
+   Add/Uncomment the following 2 lines in `Dockerfile-php`'s `OPCache tuning` section:
    
    ```dockerfile
    RUN echo 'opcache.preload = /app/public/var/cache/opcache-preload.php' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;

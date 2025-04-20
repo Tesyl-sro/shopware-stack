@@ -31,6 +31,8 @@ RUN echo 'pm.max_requests = 16' >> /usr/local/etc/php-fpm.d/zz-docker.conf;
 # OPCache tuning
 RUN echo 'opcache.enable_file_override=1' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
 RUN echo 'opcache.interned_strings_buffer=20' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
+#RUN echo 'opcache.preload = /app/public/var/cache/opcache-preload.php' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
+#RUN echo 'opcache.preload_user = www-data' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
 
 # Performance optimizations
 RUN echo 'zend.assertions=-1' >> /usr/local/etc/php/conf.d/docker-php-sw-opts.ini;

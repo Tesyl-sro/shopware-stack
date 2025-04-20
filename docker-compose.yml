@@ -77,6 +77,7 @@ services:
       dockerfile: ./Dockerfile-php
     command: /usr/local/bin/php /app/public/bin/console scheduled-task:run --memory-limit=512M --no-interaction --no-ansi
     restart: unless-stopped
+    stop_signal: SIGKILL
     volumes:
       # Directory with site data (with write access)
       - ./site:/app/public
@@ -93,6 +94,7 @@ services:
       dockerfile: ./Dockerfile-php
     command: /usr/local/bin/php /app/public/bin/console messenger:consume async low_priority --memory-limit=512M --no-interaction --no-ansi
     restart: unless-stopped
+    stop_signal: SIGKILL
     volumes:
       # Directory with site data (with write access)
       - ./site:/app/public

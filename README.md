@@ -267,19 +267,19 @@ Perform the following steps to optimize Shopware for production use:
 
     **Clear all caches AND THEN restart the stack to apply the changes!**
 13. **(Not recommended)** Enable OPCache preloading.
-   
-   _This can noticably improve loading times, but it may cause stability issues for unknown reasons._
-
-   Add/Uncomment the following 2 lines in `Dockerfile-php`'s `OPCache tuning` section:
-   
-   ```dockerfile
-   RUN echo 'opcache.preload = /app/public/var/cache/opcache-preload.php' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
-   RUN echo 'opcache.preload_user = www-data' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
-   ```
-
-   **Rebuild AND restart the stack after modifying these files!**
-
-   **Note:** This may cause stability issues, however it also noticably improves (loading) performance. If this is unstable for you, undo this change. You may also sometimes see a lot of errors from `shopware_sched_task_runner` and `shopware_messenger_runner` *during startup*. This is normal, and it should be automatically fixed after a few seconds, and if not, undo this change.
+    
+    _This can noticably improve loading times, but it may cause stability issues for unknown reasons._
+    
+    Add/Uncomment the following 2 lines in `Dockerfile-php`'s `OPCache tuning` section:
+    
+    ```dockerfile
+    RUN echo 'opcache.preload = /app/public/var/cache/opcache-preload.php' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
+    RUN echo 'opcache.preload_user = www-data' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
+    ```
+    
+    **Rebuild AND restart the stack after modifying these files!**
+    
+    **Note:** This may cause stability issues, however it also noticably improves (loading) performance. If this is unstable for you, undo this change. You may also sometimes see a lot of errors from `shopware_sched_task_runner` and `shopware_messenger_runner` *during startup*. This is normal, and it should be automatically fixed after a few seconds, and if not, undo this change.
 
 ## Useful commands
  

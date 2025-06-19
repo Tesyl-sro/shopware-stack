@@ -5,7 +5,7 @@ RUN apt update -y
 RUN apt upgrade -y
 
 RUN apt install -y build-essential
-RUN apt install -y libonig-dev zlib1g-dev libpng-dev libicu-dev libzip-dev
+RUN apt install -y libonig-dev zlib1g-dev libpng-dev libicu-dev libzip-dev libjpeg-dev libfreetype6-dev
 RUN apt install -y nano procps git
 
 # Install extensions

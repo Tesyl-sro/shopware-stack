@@ -405,8 +405,8 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Reset all caches</summary>
   
   ```sh
-  docker exec -it php-fpm php /app/public/bin/console cache:pool:clear --all
-  docker exec -it php-fpm php /app/public/bin/console cache:clear
+  docker exec -it php-fpm php /app/public/bin/console cache:clear:all
+  docker exec -it php-fpm php /app/public/bin/console cache:warmup
   chown -hR www-data:www-data site
   ```
 

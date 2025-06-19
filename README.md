@@ -14,8 +14,9 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
 - [x] Pre-configured MariaDB 11.6.2
   - [x] Secure access - inaccessible from outside, even the host itself
 - [x] Pre-configured PHP 8.3.15 for Shopware
-  - [x] Pre-installed modules: `mbstring`, `gd`, `intl`, `pdo_mysql`, `zip`
+  - [x] Pre-installed modules: `mbstring`, `gd`, `intl`, `pdo_mysql`, `zip`, `exif`
   - [x] Pre-configured and enabled opcache
+  - [x] GD compiled with WebP, JPEG, PNG, AVIF and XPM support
   - [x] Increased memory limit to 1G
   - [x] Increased execution time limit to *3m*
 - [x] Pre-configured background service runners for Shopware 6

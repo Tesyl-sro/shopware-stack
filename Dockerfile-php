@@ -5,7 +5,7 @@ RUN apt update -y
 RUN apt upgrade -y
 
 RUN apt install -y build-essential
-RUN apt install -y libonig-dev zlib1g-dev libpng-dev libicu-dev libzip-dev libjpeg-dev libfreetype6-dev
+RUN apt install -y libonig-dev zlib1g-dev libpng-dev libicu-dev libzip-dev libjpeg-dev libfreetype6-dev libwebp-dev libavif-dev libxpm-dev
 RUN apt install -y nano procps git
 
 # Install extensions
@@ -17,7 +17,7 @@ RUN pecl install zstd
 RUN docker-php-ext-enable zstd
 
 # Install GD module  
-RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg=/usr/local/lib
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg=/usr/local/lib --with-webp --with-xpm --with-avif
 RUN docker-php-ext-install -j$(nproc) gd
 
 # Install EXIF module

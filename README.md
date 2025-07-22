@@ -3,7 +3,7 @@
 The stack consists of:
  - PHP 8.3 (FPM) under Debian Bullseye
  - MariaDB 11.6.2 under Debian
- - Caddy (latest stable)
+ - Caddy 2.10.0
 
 The [compose](./docker-compose.yml) stack will take care of building a customized PHP container image with the necessary extensions.
 

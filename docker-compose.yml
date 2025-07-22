@@ -2,7 +2,7 @@ services:
   # Caddy webserver
   caddy:
     container_name: caddy
-    image: caddy
+    image: caddy:2.10.0-alpine
     restart: unless-stopped
     ports:
       - 80:80 # Needed for HTTP->HTTPS redirection

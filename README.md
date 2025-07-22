@@ -221,24 +221,7 @@ Perform the following steps to optimize Shopware for production use:
       message_queue:
         type: 'array'
     ```
-9. Disable fine-grained caching on Redis, Varnish etc.
-   
-    **You need to clear all caches and then stop the stack before doing this!**
-    **Run all commands from `Reset all caches` under the `Useful commands section` first.**
-   
-    ```sh
-    docker compose down
-    nano site/config/packages/shopware.yml
-    ```
-
-    Add the following under `shopware.cache`:
-    ```yml
-    tagging:
-      each_config: false
-      each_snippet: false
-      each_theme_config: false
-    ```
-10. Disable Product Stream Indexing
+9. Disable Product Stream Indexing
    
     **You need to clear all caches and then stop the stack before doing this!**
     **Run all commands from `Reset all caches` under the `Useful commands section` first.**
@@ -253,7 +236,7 @@ Perform the following steps to optimize Shopware for production use:
     product_stream:
       indexing: false
     ```
-11. Set a fixed cache ID
+10. Set a fixed cache ID
     ```sh
     nano site/.env
     ```
@@ -267,7 +250,7 @@ Perform the following steps to optimize Shopware for production use:
     Repeat the same for `.env.local`.
 
     **Clear all caches AND THEN restart the stack to apply the changes!**
-13. **(Not recommended)** Enable OPCache preloading.
+11. **(Not recommended)** Enable OPCache preloading.
     
     _This can noticably improve loading times, but it may cause stability issues for unknown reasons._
     

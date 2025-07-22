@@ -55,7 +55,7 @@ services:
   # No ports are open, only Shopware itself has access
   database:
     container_name: mariadb
-    image: mariadb:11.8.2-ubi9
+    image: mariadb:11.8.2-noble
     restart: unless-stopped
     cap_add:
       # Allow memory binding

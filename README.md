@@ -287,7 +287,7 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Run a shell inside the PHP-FPM container</summary>
   
   ```sh
-  docker exec -it php-fpm bash
+  docker compose exec php-fpm bash
   ```
 </details>
 
@@ -295,7 +295,7 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Run a shell inside the database container</summary>
   
   ```sh
-  docker exec -it mariadb bash
+  docker compose exec database bash
   ```
 </details>
 
@@ -303,12 +303,12 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Use PHP CLI</summary>
   
   ```sh
-  docker exec -it php-fpm php [COMMAND]
+  docker compose exec php-fpm php [COMMAND]
   ```
 
   Example:
   ```sh
-  docker exec -it php-fpm php -v
+  docker compose exec php-fpm php -v
   ```
 </details>
 
@@ -316,7 +316,7 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Use MariaDB CLI</summary>
   
   ```sh
-  docker exec -it mariadb mariadb -u root --password=shopware -D shopware
+  docker compose exec database mariadb -u root --password=shopware -D shopware
   ```
 
   **Note:** If you changed the database name and/or password, you need to adjust the `-D` and `--password` arguments.
@@ -326,7 +326,7 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Dump the database</summary>
   
   ```sh
-  docker exec -it mariadb mariadb-dump -u root --password=shopware --skip-set-charset --default-character-set=utf8mb4 shopware > database_dump.sql
+  docker compose exec database mariadb-dump -u root --password=shopware --skip-set-charset --default-character-set=utf8mb4 shopware > database_dump.sql
   ```
 
   **Note 1:** If you changed the database name and/or password, you need to adjust the `--password` argument and/or replace the database name `shopware`.
@@ -336,12 +336,12 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Import an SQL file</summary>
   
   ```sh
-  docker exec -i mariadb mariadb -u root --password=shopware -D shopware < [SOURCE]
+  docker compose exec database mariadb -u root --password=shopware -D shopware < [SOURCE]
   ```
 
   Example:
   ```sh
-  docker exec -i mariadb mariadb -u root --password=shopware -D shopware < my_backup_file.sql
+  docker compose exec database mariadb -u root --password=shopware -D shopware < my_backup_file.sql
   ```
 
   **Note:** If you changed the database name and/or password, you need to adjust the `-D` and `--password` arguments.
@@ -351,12 +351,12 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Use Shopware CLI</summary>
   
   ```sh
-  docker exec -it php-fpm php /app/public/bin/console [COMMAND]
+  docker compose exec php-fpm /app/public/bin/console [COMMAND]
   ```
 
   Example:
   ```sh
-  docker exec -it php-fpm php /app/public/bin/console about
+  docker compose exec php-fpm /app/public/bin/console about
   ```
 </details>
 
@@ -364,7 +364,7 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Run messenger tasks</summary>
   
   ```sh
-  docker exec -it php-fpm php /app/public/bin/console messenger:consume async low_priority --time-limit=60 --memory-limit=512M --no-interaction --no-ansi --quiet
+  docker compose exec php-fpm /app/public/bin/console messenger:consume async low_priority --time-limit=60 --memory-limit=512M --no-interaction --no-ansi --quiet
   ```
 </details>
 
@@ -372,7 +372,7 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Check scheduled tasks</summary>
   
   ```sh
-  docker exec -it php-fpm php /app/public/bin/console scheduled-task:list
+  docker compose exec php-fpm /app/public/bin/console scheduled-task:list
   ```
 </details>
 
@@ -380,7 +380,7 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Run scheduled tasks</summary>
   
   ```sh
-  docker exec -it php-fpm php /app/public/bin/console scheduled-task:run --time-limit=60 --memory-limit=512M --no-interaction --no-ansi
+  docker compose exec php-fpm /app/public/bin/console scheduled-task:run --time-limit=60 --memory-limit=512M --no-interaction --no-ansi
   ```
 </details>
 
@@ -388,8 +388,8 @@ Perform the following steps to optimize Shopware for production use:
   <summary>Reset all caches</summary>
   
   ```sh
-  docker exec -it php-fpm php /app/public/bin/console cache:clear:all
-  docker exec -it php-fpm php /app/public/bin/console cache:warmup
+  docker compose exec php-fpm /app/public/bin/console cache:clear:all
+  docker compose exec php-fpm /app/public/bin/console cache:warmup
   chown -hR www-data:www-data site
   ```
 

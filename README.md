@@ -27,6 +27,21 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
     - Runs as a separate container
     - Memory limit: *512MB*
 
+## Supported Shopware versions
+| **Shopware version** | **Supported** |
+|:--------------------:|:-------------:|
+|       6.6.10.5       |       ✅       |
+|        6.7.0.1       |       ✅       |
+|        6.7.1.0       |       ❓       |
+
+<details>
+  <summary>Legend</summary>
+  
+  - ✅: Supported, tested
+  - ❌: Unsupported, tested
+  - ❓: Unknown, not tested
+</details>
+
 ## Getting started
 Before you start, you may change the default database password in [the compose file](./docker-compose.yml). Do not attempt to create additional database users, you cannot grant permissions due to how restricted the database is. If you really want this, you'll need to at least temporarily open the MariaDB port on the container.
 

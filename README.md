@@ -279,6 +279,17 @@ Perform the following steps to optimize Shopware for production use:
     **Rebuild AND restart the stack after modifying these files!**
     
     **Note:** This may cause stability issues, however it also noticably improves (loading) performance. If this is unstable for you, undo this change. You may also sometimes see a lot of errors from `shopware_sched_task_runner` and `shopware_messenger_runner` *during startup*. This is normal, and it should be automatically fixed after a few seconds, and if not, undo this change.
+12. Update `pm.max_children`, `pm.max_requests` and `listen.backlog`
+
+    These values allow limiting how much processing can PHP-FPM do. These values have to be adjusted according to your server's hardware.
+
+    _Our default values provide a good base for most small instances. For larger stores with more traffic, they may not be adequate._
+
+    Improper configuration of these values can trigger warnings in Shopware ([Tools](https://store.shopware.com/en/frosh12599847132f/tools.html)), specifically:
+    - `PHP FPM max listen queue`: This indicates how many times has PHP-FPM reached `pm.max_children` since it's been started. Ideally, this value should never be reached, therefore the "recommended" value is `0`.
+    - `PHP FPM max children reached`: This simply indicates if PHP-FPM has ever reached `pm.max_children` since it's been started. Ideally, this value should never be `true`.
+
+    **Note:** Do **not** increase these values too much, or it will overload your server. If you can't find values that _don't_ trigger any warnings, then your hardware may not be performant enough.
 
 ## Useful commands
  

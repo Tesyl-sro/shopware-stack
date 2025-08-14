@@ -32,7 +32,7 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
 |:--------------------:|:-------------:|
 |       6.6.10.5       |       ✅       |
 |        6.7.0.1       |       ✅       |
-|        6.7.1.0       |       ❓       |
+|        6.7.1.2       |       ✅       |
 
 <details>
   <summary>Legend</summary>

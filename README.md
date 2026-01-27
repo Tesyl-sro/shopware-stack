@@ -36,6 +36,7 @@ All Docker images are version-locked to ensure maximum stability. Caddy and Mari
 |        6.7.0.1       |       ✅       |
 |        6.7.1.2       |       ✅       |
 |        6.7.2.2       |       ✅       |
+|        6.7.6.2       |       ✅       |
 
 <details>
   <summary>Legend</summary>

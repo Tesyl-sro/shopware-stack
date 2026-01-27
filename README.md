@@ -2,7 +2,7 @@
 
 The stack consists of:
  - PHP 8.3 (FPM) under Debian Bullseye
- - MariaDB 11.8.2 under Debian
+ - MariaDB 11.8.5 under Debian
  - Caddy 2.10.2
 
 The [compose](./docker-compose.yml) stack will take care of building a customized PHP container image with the necessary extensions.
@@ -11,7 +11,7 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
   - [x] Automatic HTTP->HTTPS redirect
   - [x] Root to `www.` redirection
   - [x] Dotfiles blocked (except `.well-known/`)
-- [x] Pre-configured MariaDB 11.6.2
+- [x] Pre-configured MariaDB 11.8.5
   - [x] Secure access - inaccessible from outside, even the host itself
 - [x] Pre-configured PHP 8.3.15 for Shopware
   - [x] Pre-installed modules: `mbstring`, `gd`, `intl`, `pdo_mysql`, `zip`, `exif`

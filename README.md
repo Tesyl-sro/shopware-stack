@@ -432,6 +432,8 @@ Perform the following steps to optimize Shopware for production use:
   > This will irrecoverably delete **ALL VOLUMES AND IMAGES**.
   > 
   > This will **NOT** detele your database, shopware data, Caddy configuration from this stack.
+  > 
+  > You can use this to clean up old image layers that are no longer used and free up disk space.
   
   **Make sure to shut down the stack before running these commands.**
 
@@ -440,6 +442,8 @@ Perform the following steps to optimize Shopware for production use:
   docker buildx prune -a -f
   docker image prune -a -f
   ```
+
+  **You will need to re-pull and rebuild the images after this.**
 </details>
 
 ## Backing up your stack

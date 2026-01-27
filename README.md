@@ -27,6 +27,8 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
     - Runs as a separate container
     - Memory limit: *512MB*
 
+All Docker images are version-locked to ensure maximum stability. Caddy and MariaDB are strictly locked and need to be manually updated in the Compose file. PHP is is only locked to version 8.3, so minor updates are available automatically when rebuilding the image.
+
 ## Supported Shopware versions
 | **Shopware version** | **Supported** |
 |:--------------------:|:-------------:|
@@ -291,6 +293,9 @@ Perform the following steps to optimize Shopware for production use:
     - `PHP FPM max children reached`: This simply indicates if PHP-FPM has ever reached `pm.max_children` since it's been started. Ideally, this value should never be `true`.
 
     **Note:** Do **not** increase these values too much, or it will overload your server. If you can't find values that _don't_ trigger any warnings, then your hardware may not be performant enough.
+
+## Updating Shopware & the stack
+Updating Shopware should be done using the Shopware admin panel. Updating PHP can be done by cleaning up the old image and rebuilding it.
 
 ## Useful commands
  

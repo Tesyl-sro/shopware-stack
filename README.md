@@ -46,6 +46,24 @@ All Docker images are version-locked to ensure maximum stability. Caddy and Mari
   - ❓: Unknown, not tested
 </details>
 
+<details>
+  <summary>Supported plugins</summary>
+  
+  The following plugins have been tested and are known to work with this stack:
+  - **PayPal for Shopware 6** - *10.4.1*
+  - **Shopware Language Pack** - *5.36.0*
+  - **Tools** - *3.2.5*
+  - **Migration Assistant** - *15.0.4*
+  - **Stripe Payments for Shopware 6 App** - *1.4.4*
+  - **Shopware Store** - *4.1.1*
+  - **Shopware GMV Reporting** - *1.0.0*
+  - **Custom JavaScript/CSS Manager for Shopware 6** - *5.0.3*
+  - **Custom Template Manager** - *4.0.0*
+  - **[[moori]] Foundation** - *1.7.59*
+
+  Note that this does not mean that other plugins will not work, these are just the ones that have been tested.
+</details>
+
 ## Getting started
 Before you start, you may change the default database password in [the compose file](./docker-compose.yml). Do not attempt to create additional database users, you cannot grant permissions due to how restricted the database is. If you really want this, you'll need to at least temporarily open the MariaDB port on the container.
 

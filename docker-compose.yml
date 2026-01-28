@@ -104,7 +104,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-php
-    command: /usr/local/bin/php /app/public/bin/console messenger:consume async low_priority --memory-limit=512M --no-interaction --no-ansi
+    command: /usr/local/bin/php /app/public/bin/console messenger:consume --all --memory-limit=512M --no-interaction --no-ansi
     restart: unless-stopped
     stop_signal: SIGKILL
     volumes:

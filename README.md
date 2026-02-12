@@ -486,6 +486,11 @@ tar cvzf ../my-shopware-backup.tar.gz .
 tar tvf my-shopware-backup.tar.gz | head
 ```
 
+Alternatively, if you want to create the smallest possible archive, you can use LZMA2 with maximum compression using the following command. *Note that while LZMA2 decompression is fast, compression can be __very slow__ and may require a lot of RAM.*
+```sh
+XZ_OPT=-9 tar -Jcvf ../my-shopware-backup.tar.xz .
+```
+
 You could also use `zip` or `7-Zip` to create a backup archive.
 
 **It is recommended that you use `tar`, as it keeps track of permissions and ownerships.**

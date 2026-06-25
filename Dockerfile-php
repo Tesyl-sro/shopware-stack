@@ -14,9 +14,11 @@ RUN docker-php-ext-install -j$(nproc) intl
 RUN docker-php-ext-install -j$(nproc) pdo_mysql
 RUN docker-php-ext-install -j$(nproc) zip
 RUN pecl install zstd
+RUN pecl install redis
 RUN docker-php-ext-enable zstd
+RUN docker-php-ext-enable redis
 
-# Install GD module  
+# Install GD module
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg=/usr/local/lib --with-webp --with-xpm --with-avif
 RUN docker-php-ext-install -j$(nproc) gd
 

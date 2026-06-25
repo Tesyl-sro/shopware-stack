@@ -4,6 +4,7 @@ The stack consists of:
  - PHP 8.4 (FPM) under Debian Bullseye
  - MariaDB 11.8.8 under Debian
  - Caddy 2.11.4
+ - Redis 8.2.7
 
 The [compose](./docker-compose.yml) stack will take care of building a customized PHP container image with the necessary extensions.
 
@@ -315,6 +316,33 @@ Perform the following steps to optimize Shopware for production use:
     - `PHP FPM max children reached`: This simply indicates if PHP-FPM has ever reached `pm.max_children` since it's been started. Ideally, this value should never be `true`.
 
     **Note:** Do **not** increase these values too much, or it will overload your server. If you can't find values that _don't_ trigger any warnings, then your hardware may not be performant enough.
+13. Enable Redis message queue.
+
+    **You need to shut down the stack before doing this!**
+
+    ```sh
+    nano site/.env
+    ```
+
+    Under `###> symfony/messenger ###` section, add the following:
+    ```
+    MESSENGER_TRANSPORT_DSN=redis://redis:6379/messages?auto_setup=false
+    ```
+
+    Next, inside the `php-fpm` container, install the `symfony/redis-messenger` package:
+    ```sh
+    docker compose exec php-fpm bash
+    cd /app/public
+    ./composer require "symfony/redis-messenger:^7.4" -W
+    ```
+
+    Next, still inside the `php-fpm` container, run the following command to clear caches and create the necessary Redis tables:
+    ```sh
+    ./bin/console cache:clear:all
+    ./bin/console messenger:setup-transports
+    ```
+
+    Finally, restart the stack.
 
 ## Updating Shopware & the stack
 Updating Shopware should be done using the Shopware admin panel. Updating PHP can be done by cleaning up the old image and rebuilding it.

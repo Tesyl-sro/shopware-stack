@@ -1,9 +1,9 @@
 # Shopware 6 Docker Stack
 
 The stack consists of:
- - PHP 8.3 (FPM) under Debian Bullseye
- - MariaDB 11.8.5 under Debian
- - Caddy 2.10.2
+ - PHP 8.4 (FPM) under Debian Bullseye
+ - MariaDB 11.8.8 under Debian
+ - Caddy 2.11.4
 
 The [compose](./docker-compose.yml) stack will take care of building a customized PHP container image with the necessary extensions.
 
@@ -11,9 +11,9 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
   - [x] Automatic HTTP->HTTPS redirect
   - [x] Root to `www.` redirection
   - [x] Dotfiles blocked (except `.well-known/`)
-- [x] Pre-configured MariaDB 11.8.5
+- [x] Pre-configured MariaDB 11.8.8
   - [x] Secure access - inaccessible from outside, even the host itself
-- [x] Pre-configured PHP 8.3.15 for Shopware
+- [x] Pre-configured PHP 8.4 for Shopware
   - [x] Pre-installed modules: `mbstring`, `gd`, `intl`, `pdo_mysql`, `zip`, `exif`
   - [x] Pre-configured and enabled opcache
   - [x] GD compiled with WebP, JPEG, PNG, AVIF and XPM support
@@ -38,6 +38,8 @@ All Docker images are version-locked to ensure maximum stability. Caddy and Mari
 |        6.7.2.2       |       ✅       |
 |        6.7.6.2       |       ✅       |
 |        6.7.7.1       |       ✅       |
+|        6.7.10.1      |       ✅       |
+|        6.7.11.1      |       ✅       |
 
 <details>
   <summary>Legend</summary>

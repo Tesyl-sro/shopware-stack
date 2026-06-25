@@ -2,7 +2,7 @@ services:
   # Caddy webserver
   caddy:
     container_name: caddy
-    image: caddy:2.10.2-alpine
+    image: caddy:2.11.4-alpine
     restart: unless-stopped
     ports:
       - 80:80 # Needed for HTTP->HTTPS redirection
@@ -24,7 +24,15 @@ services:
     depends_on:
       - php-fpm
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:2019/metrics"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:2019/metrics",
+        ]
       start_period: 10s
       interval: 1m
       timeout: 5s
@@ -33,7 +41,7 @@ services:
   # Custom PHP container
   php-fpm:
     container_name: php-fpm
-    user: 'www-data:www-data'
+    user: "www-data:www-data"
     build:
       context: .
       dockerfile: ./Dockerfile-php
@@ -55,7 +63,7 @@ services:
   # No ports are open, only Shopware itself has access
   database:
     container_name: mariadb
-    image: mariadb:11.8.5-noble
+    image: mariadb:11.8.8-noble
     restart: unless-stopped
     cap_add:
       # Allow memory binding
@@ -68,7 +76,14 @@ services:
       # Database data
       - ./mariadb_data:/var/lib/mysql
     healthcheck:
-      test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
+      test:
+        [
+          "CMD",
+          "healthcheck.sh",
+          "--su-mysql",
+          "--connect",
+          "--innodb_initialized",
+        ]
       start_period: 10s
       interval: 1m
       timeout: 5s
@@ -77,7 +92,7 @@ services:
   # Scheduled task runner
   shopware_sched_task_runner:
     container_name: shopware_sched_task_runner
-    user: 'www-data:www-data'
+    user: "www-data:www-data"
     build:
       context: .
       dockerfile: ./Dockerfile-php
@@ -100,7 +115,7 @@ services:
   # Messenger consumer
   shopware_messenger_runner:
     container_name: shopware_messenger_runner
-    user: 'www-data:www-data'
+    user: "www-data:www-data"
     build:
       context: .
       dockerfile: ./Dockerfile-php

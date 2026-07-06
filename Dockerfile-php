@@ -34,12 +34,15 @@ RUN docker-php-ext-install -j$(nproc) opcache
 RUN echo 'memory_limit = 1024M' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;
 RUN echo 'opcache.memory_consumption = 256' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
 RUN echo 'max_execution_time = 180' >> /usr/local/etc/php/conf.d/docker-php-exec-time.ini;
-RUN echo 'pm.max_children = 32' >> /usr/local/etc/php-fpm.d/zz-docker.conf;
-RUN echo 'pm.max_requests = 32' >> /usr/local/etc/php-fpm.d/zz-docker.conf;
+RUN echo 'pm = static' >> /usr/local/etc/php-fpm.d/zz-docker.conf;
+RUN echo 'pm.max_children = 8' >> /usr/local/etc/php-fpm.d/zz-docker.conf;
+RUN echo 'pm.max_requests = 500' >> /usr/local/etc/php-fpm.d/zz-docker.conf;
 RUN echo 'listen.backlog = 256' >> /usr/local/etc/php-fpm.d/zz-docker.conf;
 
 # OPCache tuning
 RUN echo 'opcache.enable_file_override=1' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
+RUN echo 'opcache.max_accelerated_files=65407' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
+RUN echo 'opcache.validate_timestamps=0' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
 RUN echo 'opcache.interned_strings_buffer=20' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
 #RUN echo 'opcache.preload = /app/public/var/cache/opcache-preload.php' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;
 #RUN echo 'opcache.preload_user = www-data' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini;

@@ -1,0 +1,11 @@
+# Caddy config and data
+caddy-*/
+
+# MySQL data
+mariadb_data/
+
+# Redis data
+redis_data/
+
+# Website data
+site/

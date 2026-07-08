@@ -18,7 +18,7 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
   - [x] Pre-installed modules: `mbstring`, `gd`, `intl`, `pdo_mysql`, `zip`, `exif`, `redis`
   - [x] Pre-configured and enabled opcache
   - [x] GD compiled with WebP, JPEG, PNG, AVIF and XPM support
-  - [x] Increased memory limit to 1G
+  - [x] Increased memory limit to 512M
   - [x] Increased execution time limit to *3m*
 - [x] Pre-configured background service runners for Shopware 6
   - `messenger:consume`
@@ -97,14 +97,13 @@ Before you start, you may change the default database password in [the compose f
 
     The latest Shopware installer will be automatically downloaded to `site/public/shopware-installer.phar.php` on the first run. If you want to use a specific version of Shopware, you can download the installer manually and place it in that location.
 8. Complete the initial Shopware setup at `https://[your-domain]/shopware-installer.phar.php`.
-10. Shut down the server with Ctrl-C or `docker compose down` if it's running in the background.
-11. Edit the `Caddyfile` so that the **root folder** is `/app/public/public`.
-12. Restart the server **according to step 8**.
-13. Complete the Shopware database configuration at `https://[your-domain]/installer`. Wait until the page is no longer loading after clicking `Next` during the `Configuration` step.
-14. Open the admin panel by going to `/admin` (e.g. `https://example.com/admin`).
-15. Complete the first-time setup.
-16. Shut down the server **according to step 11**.
-17. Restart the server as well as all services using `docker compose up`.
+9. Edit the `Caddyfile` so that the **root folder** is `/app/public/public`.
+10. Restart Caddy using `docker compose restart caddy`.
+11. Complete the Shopware database configuration at `https://[your-domain]/installer`. Wait until the page is no longer loading after clicking `Next` during the `Configuration` step.
+12. Open the admin panel by going to `/admin` (e.g. `https://example.com/admin`).
+13. Complete the first-time setup.
+14. Shut down the server **according to step 11**.
+15. Restart the server as well as all services using `docker compose up`.
 
 Note that during the installation, you should **not** start `shopware_sched_task_runner` and `shopware_messenger_runner`. These services should only ever be started after Shopware is **fully** installed, **including** the OOBE setup. Running these services with an incomplete installation of Shopware may brick your installation and you have to start over.
 

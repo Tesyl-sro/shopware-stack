@@ -164,6 +164,7 @@ You can double check this by running `docker compose exec database mariadb -uroo
 Before performing these steps:
 1. Make sure you're in the root directory of this repo.
 2. Shut down the stack (unless stated otherwise).
+3. Set up HTTPS as described above.
 
 **The following steps are not required, but may help improve security and performance.**
 

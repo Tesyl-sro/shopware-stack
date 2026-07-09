@@ -166,6 +166,11 @@ You can double check this by running `docker compose exec database mariadb -uroo
 +----------------------+
 ```
 
+## Running a second Shopware instance
+You can run multiple Shopware instances on the same server by creating a new directory for each instance.
+
+You need to change all `container_name` values in the `docker-compose.yml` file to avoid conflicts. You also need to change the port for the Caddy container.
+
 ## Post-setup
 Before performing these steps:
 1. Make sure you're in the root directory of this repo.

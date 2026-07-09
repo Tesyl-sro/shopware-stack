@@ -149,10 +149,21 @@ https://[domain] {
 }
 ```
 
-Lastly, edit the `site/.env` and `site/.env.local` files to set the `APP_URL` and `TRUSTED_PROXIES` variable to your domain, e.g.:
+Next, edit the `site/.env` and `site/.env.local` files to set the `APP_URL` and `TRUSTED_PROXIES` variable to your domain, e.g.:
 ```env
 APP_URL=https://[domain]
 TRUSTED_PROXIES=REMOTE_ADDR
+```
+
+Lastly, create or edit the `site/config/packages/framework.yaml`:
+```yml
+framework:
+    trusted_proxies: '%env(TRUSTED_PROXIES)%'
+    trusted_headers:
+        - 'x-forwarded-for'
+        - 'x-forwarded-host'
+        - 'x-forwarded-proto'
+        - 'x-forwarded-port'
 ```
 
 You likely also need to set the sales channel's URL to your domain in the Shopware admin panel. Make sure to remove any HTTP URLs from the sales channel configuration, as this may cause issues with the reverse proxy.

@@ -5,6 +5,9 @@ on:
     paths:
       - "Dockerfile"
       - "entrypoint-php.sh"
+    branches:
+      - main
+      - feature/improvements-07-2026
   workflow_dispatch:
 
 jobs:

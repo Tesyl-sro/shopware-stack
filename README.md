@@ -122,7 +122,14 @@ On some systems, the `www-data` user and group may not exist. In this case, use 
 >
 > The original setup forced Caddy as the main web server, making it more difficult to run other services on the same server. You'll now need to set up a reverse proxy in front of this stack to provide HTTPS.
 
+> ⚠️ You will need to complete the installation of Shopware before setting up HTTPS!
+
 This stack only provides an HTTP server. For production use, you should set up a reverse proxy in front of this stack to provide HTTPS. The simplest setup is a separate `docker-compose.yml` wuth a Caddy container.
+
+Firstly, make sure that your sales channel already has the HTTPS URL set in the Shopware admin panel. If you already started messing with HTTPS configuration, and you no longer have access to the admin panel, use the command `docker compose exec database mariadb -uroot -pshopware shopware   -e "SELECT url FROM sales_channel_domain;"` to check the current URLs.
+Additionally, you can look up commands to change the sales channel URL using the CLI.
+
+After that, shut down the stack using `docker compose down` and follow the steps below.
 
 In a separate directory, create a `docker-compose.yml` file with the following content:
 ```yml
@@ -152,7 +159,7 @@ https://[domain] {
 Next, edit the `site/.env` and `site/.env.local` files to set the `APP_URL` and `TRUSTED_PROXIES` variable to your domain, e.g.:
 ```env
 APP_URL=https://[domain]
-TRUSTED_PROXIES=REMOTE_ADDR
+TRUSTED_PROXIES="REMOTE_ADDR"
 ```
 
 Lastly, create or edit the `site/config/packages/framework.yaml`:
@@ -165,17 +172,8 @@ framework:
         - 'x-forwarded-proto'
         - 'x-forwarded-port'
 ```
-
-You likely also need to set the sales channel's URL to your domain in the Shopware admin panel. Make sure to remove any HTTP URLs from the sales channel configuration, as this may cause issues with the reverse proxy.
-You can double check this by running `docker compose exec database mariadb -uroot -pshopware shopware   -e "SELECT url FROM sales_channel_domain;"`. The result should look like this:
-```
-+----------------------+
-| url                  |
-+----------------------+
-| default.headless0    |
-| https://[domain].com |
-+----------------------+
-```
+Then re-apply ownership of the `site` directory using `chown -hR www-data:www-data site` and restart the stack using `docker compose up caddy php-fpm database`.
+Also reset all caches using the commands in the `Useful commands` section.
 
 ## Running a second Shopware instance
 You can run multiple Shopware instances on the same server by creating a new directory for each instance.

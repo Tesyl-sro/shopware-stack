@@ -1,5 +1,7 @@
 # Shopware 6 Docker Stack
 
+[![Build Docker image](https://github.com/Tesyl-sro/shopware-stack/actions/workflows/docker-build.yml/badge.svg?branch=main)](https://github.com/Tesyl-sro/shopware-stack/actions/workflows/docker-build.yml)
+
 The stack consists of:
  - PHP 8.4 (FPM) under Debian Bullseye
  - MariaDB 11.8.8 under Debian

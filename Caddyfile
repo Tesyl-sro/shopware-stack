@@ -3,11 +3,7 @@
   admin off
 }
 
-example.com {
-  redir https://www.{host}{uri}
-}
-
-www.example.com {
+:80 {
   header {
     Referrer-Policy no-referrer-when-downgrade
   }

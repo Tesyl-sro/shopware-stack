@@ -5,9 +5,7 @@ services:
     image: caddy:2.11.4-alpine
     restart: unless-stopped
     ports:
-      - 80:80 # Needed for HTTP->HTTPS redirection
-      - 443:443
-      - 443:443/udp
+      - 8888:80
     volumes:
       # Caddy routes files (read-only)
       - ./Caddyfile:/etc/caddy/Caddyfile:ro

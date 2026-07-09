@@ -9,9 +9,8 @@ The stack consists of:
 The [compose](./docker-compose.yml) stack will take care of building a customized PHP container image with the necessary extensions.
 
 - [x] Pre-configured Caddy server (except domain)
-  - [x] Automatic HTTP->HTTPS redirect
-  - [x] Root to `www.` redirection
   - [x] Dotfiles blocked (except `.well-known/`)
+  - [x] HTTPS ready; easy to set up with a reverse proxy
 - [x] Pre-configured MariaDB 11.8.8
   - [x] Secure access - inaccessible from outside, even the host itself
 - [x] Pre-configured PHP 8.4 for Shopware
@@ -96,11 +95,11 @@ Before you start, you may change the default database password in [the compose f
     *You can add `-d` to run it in the background.*
 
     The latest Shopware installer will be automatically downloaded to `site/public/shopware-installer.phar.php` on the first run. If you want to use a specific version of Shopware, you can download the installer manually and place it in that location.
-8. Complete the initial Shopware setup at `https://[your-domain]/shopware-installer.phar.php`.
+8. Complete the initial Shopware setup at `http://[host]:8888/shopware-installer.phar.php`.
 9. Edit the `Caddyfile` so that the **root folder** is `/app/public/public`.
 10. Restart Caddy using `docker compose restart caddy`.
-11. Complete the Shopware database configuration at `https://[your-domain]/installer`. Wait until the page is no longer loading after clicking `Next` during the `Configuration` step.
-12. Open the admin panel by going to `/admin` (e.g. `https://example.com/admin`).
+11. Complete the Shopware database configuration at `http://[host]:8888/installer`. Wait until the page is no longer loading after clicking `Next` during the `Configuration` step.
+12. Open the admin panel by going to `/admin` (e.g. `http://[host]:8888/admin`).
 13. Complete the first-time setup.
 14. Shut down the server **according to step 11**.
 15. Restart the server as well as all services using `docker compose up`.
@@ -108,17 +107,58 @@ Before you start, you may change the default database password in [the compose f
 Note that during the installation, you should **not** start `shopware_sched_task_runner` and `shopware_messenger_runner`. These services should only ever be started after Shopware is **fully** installed, **including** the OOBE setup. Running these services with an incomplete installation of Shopware may brick your installation and you have to start over.
 
 ## Testing on localhost
-If you want to test this stack on `localhost`, do the following:
-1. Remove the HTTP->HTTPS redirect entry from `Caddyfile`:
-    ```
-    example.com {
-      redir https://www.{host}{uri}
-    }
-    ```
-2. Change the domain from `www.example.com` to `http://localhost`.
-3. Continue as normal with the rest of the setup.
+Use `http://localhost:8888` to access the Shopware store and `http://localhost:8888/admin` to access the admin panel.
 
 On some systems, the `www-data` user and group may not exist. In this case, use the UID `33` and GID `33` in the `chown` commands. Additionnaly, you may need to use `sudo`.
+
+## HTTPS Configuration
+> ⚠️ As of July 2026, we have removed automatic HTTPS configuration from this stack.
+>
+> The original setup forced Caddy as the main web server, making it more difficult to run other services on the same server. You'll now need to set up a reverse proxy in front of this stack to provide HTTPS.
+
+This stack only provides an HTTP server. For production use, you should set up a reverse proxy in front of this stack to provide HTTPS. The simplest setup is a separate `docker-compose.yml` wuth a Caddy container.
+
+In a separate directory, create a `docker-compose.yml` file with the following content:
+```yml
+services:
+  caddy:
+    image: caddy:2.11.4-alpine
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./caddy-data:/data
+      - ./caddy-config:/config
+```
+
+Then create a `Caddyfile` in the same directory with the following content:
+```caddy
+https://[domain] {
+  reverse_proxy host.docker.internal:8888
+}
+```
+
+Lastly, edit the `site/.env` and `site/.env.local` files to set the `APP_URL` and `TRUSTED_PROXIES` variable to your domain, e.g.:
+```env
+APP_URL=https://[domain]
+TRUSTED_PROXIES=REMOTE_ADDR
+```
+
+You likely also need to set the sales channel's URL to your domain in the Shopware admin panel. Make sure to remove any HTTP URLs from the sales channel configuration, as this may cause issues with the reverse proxy.
+You can double check this by running `docker compose exec database mariadb -uroot -pshopware shopware   -e "SELECT url FROM sales_channel_domain;"`. The result should look like this:
+```
++----------------------+
+| url                  |
++----------------------+
+| default.headless0    |
+| https://[domain].com |
++----------------------+
+```
 
 ## Post-setup
 Before performing these steps:

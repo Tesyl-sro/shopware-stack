@@ -73,6 +73,10 @@ All Docker images are version-locked to ensure maximum stability. Caddy and Mari
 ## Getting started
 Before you start, you may change the default database password in [the compose file](./docker-compose.yml). Do not attempt to create additional database users, you cannot grant permissions due to how restricted the database is. If you really want this, you'll need to at least temporarily open the MariaDB port on the container.
 
+> ℹ️ If you are running on a slow system, you can also use pre-built images from the CI. You can find the latest images [here](https://github.com/Tesyl-sro/shopware-stack/pkgs/container/shopware-stack).
+> 
+> Simply replace the `build` section in the [compose](./docker-compose.yml) file with `image: ghcr.io/tesyl-sro/shopware-stack:latest` and run `docker compose pull` to download the latest image.
+
 1. Install Docker using [these](https://docs.docker.com/engine/install/) instructions.
 2. Download this repo as a zip to your server.
 3. Extract the archive.

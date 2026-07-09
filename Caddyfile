@@ -1,6 +1,9 @@
 # Leave this section
 {
   admin off
+  servers {
+    trusted_proxies static private_ranges
+  }
 }
 
 :80 {
@@ -32,7 +35,18 @@
   }
   header @static Cache-Control "max-age=3600,public,immutable"
 
+  # After the Shopware installer finishes, the real document root moves into
+  # the public/ subfolder (/app/public/public). Detect that and switch roots
+  # automatically. Evaluated per-request, so no restart is needed post-install.
+  @installed {
+    file {
+      root /app/public
+      try_files /public/index.php
+    }
+  }
+
   root * /app/public
+  root @installed /app/public/public
   php_fastcgi @default php-fpm:9000
   encode zstd gzip
   file_server

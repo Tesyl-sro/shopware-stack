@@ -32,8 +32,8 @@ The [compose](./docker-compose.yml) stack will take care of building a customize
 All Docker images are version-locked to ensure maximum stability. Caddy and MariaDB are strictly locked and need to be manually updated in the Compose file. PHP is is only locked to version 8.3, so minor updates are available automatically when rebuilding the image.
 
 ## Supported Shopware versions
-| **Shopware version** | **Supported** |
-|:--------------------:|:-------------:|
+| **Shopware version** |  **Supported**  |
+|:--------------------:|:---------------:|
 |       6.6.10.5       |       ✅       |
 |        6.7.0.1       |       ✅       |
 |        6.7.1.2       |       ✅       |

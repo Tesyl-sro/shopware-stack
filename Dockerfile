@@ -45,7 +45,7 @@ RUN echo 'memory_limit = 512M' >> /usr/local/etc/php/conf.d/docker-php-memlimit.
     echo 'opcache.memory_consumption = 256' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini && \
     echo 'max_execution_time = 180' >> /usr/local/etc/php/conf.d/docker-php-exec-time.ini && \
     echo 'pm = static' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
-    echo 'pm.max_children = 8' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
+    echo 'pm.max_children = 64' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
     echo 'pm.max_requests = 500' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
     echo 'listen.backlog = 256' >> /usr/local/etc/php-fpm.d/zz-docker.conf;
 

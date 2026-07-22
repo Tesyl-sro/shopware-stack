@@ -124,7 +124,8 @@ services:
     # Note: memory limit has to be <= `memory_limit` in PHP configuration
     command: /usr/local/bin/php /app/public/bin/console scheduled-task:run --memory-limit=512M --no-interaction --no-ansi
     restart: unless-stopped
-    stop_signal: SIGKILL
+    init: true
+    stop_signal: SIGINT
     volumes:
       # Directory with site data (with write access)
       - ./site:/app/public
@@ -150,7 +151,8 @@ services:
     # Note: memory limit has to be <= `memory_limit` in PHP configuration
     command: /usr/local/bin/php /app/public/bin/console messenger:consume --all --memory-limit=512M --no-interaction --no-ansi
     restart: unless-stopped
-    stop_signal: SIGKILL
+    init: true
+    stop_signal: SIGINT
     volumes:
       # Directory with site data (with write access)
       - ./site:/app/public

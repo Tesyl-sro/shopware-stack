@@ -62,9 +62,8 @@ services:
     container_name: redis
     image: redis:8.2.7-alpine3.22
     restart: unless-stopped
-    # Enable Append Only File so Shopware can restore queue after restart
     # `noeviction` makes Redis reject new writes if the memory is full
-    command: redis-server --appendonly yes --maxmemory-policy noeviction --maxmemory 200mb
+    command: redis-server --maxmemory-policy noeviction --maxmemory 200mb
     # Limit RAM usage
     mem_limit: 256m
     volumes:

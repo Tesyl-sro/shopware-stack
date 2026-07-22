@@ -131,6 +131,8 @@ services:
     depends_on:
       caddy:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "pgrep", "-x", "php"]
       start_period: 10s
@@ -154,6 +156,8 @@ services:
       - ./site:/app/public
     depends_on:
       caddy:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "pgrep", "-x", "php"]

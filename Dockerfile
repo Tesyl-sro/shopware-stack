@@ -41,7 +41,7 @@ RUN docker-php-ext-configure opcache --enable-opcache && \
     docker-php-ext-install -j$(nproc) opcache
 
 # Add extra configuration options
-RUN echo 'memory_limit = 512M' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini && \
+RUN echo 'memory_limit = 1024M' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini && \
     echo 'opcache.memory_consumption = 256' >> /usr/local/etc/php/conf.d/docker-php-opcache.ini && \
     echo 'max_execution_time = 180' >> /usr/local/etc/php/conf.d/docker-php-exec-time.ini && \
     echo 'pm = static' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \

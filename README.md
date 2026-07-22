@@ -131,6 +131,7 @@ Additionally, you can look up commands to change the sales channel URL using the
 
 After that, shut down the stack using `docker compose down` and follow the steps below.
 
+## Caddy
 In a separate directory, create a `docker-compose.yml` file with the following content:
 ```yml
 services:
@@ -155,6 +156,53 @@ https://[domain] {
   reverse_proxy host.docker.internal:8888
 }
 ```
+
+## Cloudflare Tunnel
+If you are using Cloudflare, you can also use a Cloudflare Tunnel to provide HTTPS.
+
+In a separate directory, create a `docker-compose.yml` file with the following content:
+```yml
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:2026.7.2
+    container_name: cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=__YOUR_TOKEN_HERE__
+      - TUNNEL_METRICS=127.0.0.1:2000
+    healthcheck:
+      test: ["CMD", "cloudflared", "tunnel", "--metrics", "127.0.0.1:2000", "ready"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 64M
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+```
+
+Continue with the setup on your Cloudflare dashboard to create a new tunnel and get the `TUNNEL_TOKEN`. Replace `__YOUR_TOKEN_HERE__` with your actual token.
+
+## Post-setup HTTPS configuration
+You need to make Shopware trust the reverse proxy. Do the following steps to configure this.
 
 Next, edit the `site/.env` and `site/.env.local` files to set the `APP_URL` and `TRUSTED_PROXIES` variable to your domain, e.g.:
 ```env

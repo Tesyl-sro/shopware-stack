@@ -451,6 +451,9 @@ Perform the following steps to optimize Shopware for production use:
     ```
 
     Finally, restart the stack.
+14. Optimize service limits to your hardware
+
+    Change `pids_limit`, `mem_limit` and `cpus` according to your preference and hardware configuration. The defaults are optimized for a 2 vCore + 4GB RAM server.
 
 ## Updating Shopware & the stack
 Updating Shopware should be done using the Shopware admin panel. Updating PHP can be done by cleaning up the old image and rebuilding it.

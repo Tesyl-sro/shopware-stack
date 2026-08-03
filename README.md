@@ -153,10 +153,11 @@ services:
 
 Then create a `Caddyfile` in the same directory with the following content:
 ```caddy
-https://[domain] {
+https://example.com {
   reverse_proxy host.docker.internal:8888
 }
 ```
+Replace `example.com` with your store domain.
 
 ## Cloudflare Tunnel
 If you are using Cloudflare, you can also use a Cloudflare Tunnel to provide HTTPS.

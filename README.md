@@ -430,10 +430,10 @@ Perform the following steps to optimize Shopware for production use:
     **You need to shut down the stack before doing this!**
 
     ```sh
-    nano site/.env
+    nano site/.env.local
     ```
 
-    Under `###> symfony/messenger ###` section, add the following:
+    At the end of the file, add the following:
     ```
     MESSENGER_TRANSPORT_DSN=redis://redis:6379/messages?auto_setup=false
     ```

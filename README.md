@@ -582,7 +582,9 @@ Updating Shopware should be done using the Shopware admin panel. Updating PHP ca
   
   ```sh
   docker compose exec php-fpm /app/public/bin/console cache:clear:all
+  docker compose exec php-fpm /app/public/bin/console cache:clear
   docker compose exec php-fpm /app/public/bin/console cache:warmup
+  docker compose exec php-fpm /app/public/bin/console theme:compile
   chown -hR www-data:www-data site
   ```
 

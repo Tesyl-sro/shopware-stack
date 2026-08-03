@@ -665,3 +665,24 @@ To restore your Shopware stack from a backup, run the following steps:
     ```sh
     docker compose up -d
     ```
+
+# Troubleshooting
+This section is dedicated to issues we encountered over time, with potential fixes.
+
+<details>
+  <summary>Shopware tools displays <code>Open Queues</code> warning, but message processing works.</summary>
+
+  Firstly, check if messages and tasks are actually being executed. If containers `shopware_sched_task_runner` and `shopware_messenger_runner` are running, then go to the admin panel, `Settings`, `Caches & indexes` and click `Update indexes`.
+  Now go back to Shopware Tools, open `Queue` tab and check if the *size* of the `async` and `default` queues is decreasing as you keep refreshing. If the numbers drop to 0, it means that message processing works.
+
+  If the `Open Queues` warning is still displayed, click `Reset Queue` and confirm. This should clear the warning.
+
+  ### Causes
+  Unknown, but it could be that if the messenger does not consume a message fast enough, and the message gets somehow dropped or lost from Redis/Doctrine queue, and the database still has that message marked as queued, then Shopware Tools will count that as an unprocessed message. This is likely to happen after an update, not sure why.
+</details>
+
+<details>
+  <summary>Redis configuration is lost after an update</summary>
+
+  Make sure you configured the Redis queue in the `.env.local` file, and **not** `.env`.
+</details>

@@ -687,3 +687,16 @@ This section is dedicated to issues we encountered over time, with potential fix
 
   Make sure you configured the Redis queue in the `.env.local` file, and **not** `.env`.
 </details>
+
+<details>
+  <summary>Google XML generation broken with large `google.xml.partial`</summary>
+
+  This is a bug or bad logic in the Google Merchant implementation. When you shut down the stack, it's possible that the XML generation gets interrupted, causing Shopware to think that the generation failed and then tries to regenerate the `google.xml` file, but instead of overwriting the corrupt `google.xml.partial` file, it appends to it. It will end up writing a ton of duplicate data, making this file very large. The `shopware_messenger_runner` will crash due to an out-of-memory error while processing this large file.
+
+  To fix this, simply delete the `google.xml` and `google.xml.partial` files in `site/files/export`:
+  ```sh
+  rm site/files/export/google.xml site/files/export/google.xml.partial
+  ```
+
+  Shopware will regenerate the XML file automatically within 24-48 hours, or you can manually trigger the task that does the generation.
+</details>

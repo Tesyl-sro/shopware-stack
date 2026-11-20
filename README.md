@@ -3,10 +3,10 @@
 [![Build Docker image](https://github.com/Tesyl-sro/shopware-stack/actions/workflows/docker-build.yml/badge.svg?branch=main)](https://github.com/Tesyl-sro/shopware-stack/actions/workflows/docker-build.yml)
 
 The stack consists of:
- - PHP 8.4 (FPM) under Debian Bullseye
- - MariaDB 11.8.8 under Debian
- - Caddy 2.11.4
- - Redis 8.2.7
+ - PHP 8.4 (FPM) on Debian Bullseye
+ - MariaDB 11.8.9 on Debian
+ - Caddy 2.11.9
+ - Redis 8.10
 
 The [compose](./docker-compose.yml) stack will take care of building a customized PHP container image with the necessary extensions.
 

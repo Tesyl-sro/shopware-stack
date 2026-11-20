@@ -2,7 +2,7 @@ services:
   # Caddy webserver
   caddy:
     container_name: caddy
-    image: caddy:2.11.4-alpine
+    image: caddy:2.11.9-alpine
     restart: unless-stopped
     pids_limit: 20
     mem_limit: 64m
@@ -71,7 +71,7 @@ services:
   # Redis
   redis:
     container_name: redis
-    image: redis:8.2.7-alpine3.22
+    image: redis:8.10-alpine
     restart: unless-stopped
     # `noeviction` makes Redis reject new writes if the memory is full
     command: redis-server --maxmemory-policy noeviction --maxmemory 200mb
@@ -95,7 +95,7 @@ services:
   # No ports are open, only Shopware itself has access
   database:
     container_name: mariadb
-    image: mariadb:11.8.8-noble
+    image: mariadb:11.8.9-noble
     restart: unless-stopped
     pids_limit: 1000
     mem_limit: 2g

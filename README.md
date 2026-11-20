@@ -613,6 +613,7 @@ Updating Shopware should be done using the Shopware admin panel. Updating PHP ca
   docker buildx prune -a -f
   docker image prune -a -f
   docker container prune -f
+  docker system prune -a -f --volumes
   ```
 
   **You will need to re-pull and rebuild the images after this.**
